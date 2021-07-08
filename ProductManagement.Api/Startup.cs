@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +31,7 @@ namespace product_management
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("ProductManagementDb"));
             });
+            services.AddTransient<DataSeeder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
