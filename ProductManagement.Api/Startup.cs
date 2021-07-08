@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductManagement.Core.services.implementations;
+using ProductManagement.Core.services.interfaces;
 using ProductManagement.Data.EF;
 
 namespace product_management
@@ -27,11 +29,12 @@ namespace product_management
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddDbContext<ProductManagementDbContext>(cfg=>
+            services.AddDbContext<ProductManagementDbContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("ProductManagementDb"));
             });
             services.AddTransient<DataSeeder>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
