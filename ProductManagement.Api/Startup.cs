@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductManagement.Data.EF;
 
 namespace product_management
 {
@@ -25,6 +27,10 @@ namespace product_management
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+            services.AddDbContext<ProductManagementDbContext>(cfg=>
+            {
+                cfg.UseSqlServer(Configuration.GetConnectionString("ProductManagementDb"));
             });
         }
 
