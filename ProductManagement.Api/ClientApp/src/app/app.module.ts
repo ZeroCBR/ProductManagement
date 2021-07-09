@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import {MessageModule} from 'primeng/message'
+import {MessagesModule} from 'primeng/messages'
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -12,13 +14,17 @@ import { ProductTableComponent } from './product-list/product-table/product-tabl
 import { TableModule } from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
+import { ProductDeleteConfirmationComponent } from './product-list/product-delete-confirmation/product-delete-confirmation.component';
+import {ToastModule} from 'primeng/toast'
+import {MessageService} from 'primeng/api'
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     ProductListComponent,
-    ProductTableComponent
+    ProductTableComponent,
+    ProductDeleteConfirmationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -26,12 +32,18 @@ import {ButtonModule} from 'primeng/button';
     ButtonModule,
     DropdownModule,
     HttpClientModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: ProductListComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [ProductService],
+  providers: [
+    ProductService,
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

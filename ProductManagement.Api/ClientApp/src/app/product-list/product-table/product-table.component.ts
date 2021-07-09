@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core'
-import {Observable} from 'rxjs'
-import {ActivatedRoute} from '@angular/router'
-import {Params} from '@angular/router'
-import { Column } from 'src/app/core/models/product.model'
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Column, Product } from '../../core/models/product.model';
+import {MessageService} from 'primeng/api';
+import { ProductService } from '../../core/services/product.service';
 
 @Component({
   selector: 'app-product-table',
@@ -10,27 +9,39 @@ import { Column } from 'src/app/core/models/product.model'
   styleUrls: ['./product-table.component.scss']
 })
 export class ProductTableComponent  {
-  @Input() products:[];
+  @Input() products: [];
+  @Output() afterDeletion = new EventEmitter<void>();
+
   cols: Column[];
+  selectedProduct: Product;
 
   constructor(
-    private route: ActivatedRoute
+    private messageService: MessageService,
+    private productService: ProductService
   ) {
     this.cols = [
       {field: 'name', header: 'Name', isSortable: true},
       {field: 'price', header: 'Price', isSortable: true},
-      {field: 'productType', header: 'Product Type', isSortable: true},
+      {field: 'type', header: 'Product Type', isSortable: true},
       {field: 'active', header: 'Active', isSortable: true},
-      {field:'action', header:'Action', isSortable: false}
-    ]
+      {field: 'actions', header: 'Actions', isSortable: false}
+    ];
   }
 
-  buildRequestParams(params: Params): any {
-    return {
-      page: params['page'] ? params['page'] : 0,
-      searchTerm: params['searchTerm'] ? params['searchTerm'] : '',
-      pageSize: params['pageSize'] ? params['pageSize'] : null,
-      filterFleetStatus: params['filterFleetStatus']
-    }
+  deleteProduct(product: Product): void {
+    this.productService.deleteProduct(product.id).subscribe(
+      () => {
+        this.messageService.add({severity: 'success', summary: 'Delete Product', detail: 'Product deleted successfully',life:3000});
+        this.afterDeletion.emit();
+      },
+      (err) => {
+        console.error(err);
+        this.messageService.add({severity: 'error', summary: 'Delete Product', detail: 'Failed to delete Product',life:3000});
+        this.afterDeletion.emit();
+      });
+  }
+
+  deleteProductClicked(product: Product): void {
+    this.selectedProduct = product;
   }
 }

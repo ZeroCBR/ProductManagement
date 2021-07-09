@@ -9,9 +9,13 @@ import { ProductService } from '../core/services/product.service';
 export class ProductListComponent {
   products: Product[];
 
-  constructor(private productService:ProductService){
-    this.productService.getProductList().subscribe(data=>{
-      this.products = data
-    })
+  constructor(private productService: ProductService) {
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.productService.getProductList().subscribe(data => {
+      this.products = data;
+    });
   }
 }

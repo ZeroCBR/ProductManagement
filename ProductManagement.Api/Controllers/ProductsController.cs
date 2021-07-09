@@ -9,7 +9,7 @@ using ProductManagement.Core.services.interfaces;
 namespace product_management.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -24,6 +24,14 @@ namespace product_management.Controllers
         {
             var products = await _productService.GetAllProducts();
             return Ok(products);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var message = await _productService.DeleteProduct(id);
+
+            return Ok(message);
         }
     }
 }

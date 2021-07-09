@@ -9,5 +9,6 @@ namespace ProductManagement.Core.services.interfaces
     public interface IProductService
     {
         Task<IEnumerable<Product>> GetAllProducts();
+        Task<string> DeleteProduct(Guid id);
     }
 }

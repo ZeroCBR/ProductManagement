@@ -1,4 +1,5 @@
 <h1>Product List</h1>
+<p-messages></p-messages>
 <div>
-  <app-product-table [products]="products"></app-product-table>
+  <app-product-table [products]="products" (afterDeletion)="loadProducts()"></app-product-table>
 </div>
