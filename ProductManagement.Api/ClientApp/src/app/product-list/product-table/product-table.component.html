@@ -1,0 +1,32 @@
+<p-table #dt [value]="products" dataKey="id" styleClass="ui-table-products" [rowHover]="true" [rows]="5"
+  [showCurrentPageReport]="true" [paginator]="true" [rowsPerPageOptions]="[5,10]"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of cols" [pSortableColumn]="col.field" class="{{col.field}}Header">
+        <div class="d-flex">
+          <div class="align-self-center">
+            {{col.header}}
+            <p-sortIcon *ngIf="col.isSortable" [field]="col.field"></p-sortIcon>
+          </div>
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr class="ui-selectable-row">
+      <td *ngFor="let col of cols" class="{{col.field}}Column" [ngSwitch]="col.field">
+        <div *ngSwitchCase="'actions'">
+          <!-- <button class="pi pi-trash btn" (click)="deleteAlertClicked(alert)" type="button" data-toggle="modal"
+            data-target="#deleteAlertConfirmationModal"></button> -->
+        </div>
+        <div *ngSwitchDefault>{{product[col.field]}}</div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="5" style="text-align:left">No customers found.</td>
+    </tr>
+  </ng-template>
+</p-table>

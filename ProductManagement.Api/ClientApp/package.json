@@ -1,6 +1,7 @@
 {
   "name": "product_management",
   "version": "0.0.0",
+  "author": "Ray Chen",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,6 +14,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "9.1.13",
+    "@angular/cdk": "^9.0.0",
     "@angular/common": "9.1.13",
     "@angular/compiler": "9.1.13",
     "@angular/core": "9.1.13",
@@ -29,7 +31,7 @@
     "oidc-client": "^1.9.1",
     "popper.js": "^1.16.0",
     "primeicons": "^4.1.0",
-    "primeng": "^9.0.0",
+    "primeng": "^10.0.0",
     "rxjs": "^6.5.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

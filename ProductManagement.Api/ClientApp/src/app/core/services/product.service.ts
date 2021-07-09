@@ -2,6 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import { Product } from '../models/product.model';
 // import { SearchParam } from '../models/search.model';
 
 @Injectable()
@@ -15,38 +16,13 @@ export class ProductService {
     this.apiUrl= baseUrl
   }
   
-  getProductList(searchParam: any= null): Observable<any> {
+  getProductList(): Observable<Product[]> {
     const url = `${this.apiUrl}products`;
-    // const params = this.buildRequestParams(searchParam);
 
-    return this.http.get(url,{}).pipe(
+    return this.http.get<Product[]>(url,{}).pipe(
       catchError(err => {
         throw err;
       })
     );
   }
-
-  // private buildRequestParams(searchParam: SearchParam = null): HttpParams {
-  //   let params = new HttpParams();
-
-  //   if (searchParam) {
-  //     if (searchParam.id) {
-  //       params = params.append('id', searchParam.id);
-  //     }
-
-  //     if (searchParam.keyword) {
-  //       params = params.append('keyword', searchParam.keyword);
-  //     }
-
-  //     if (searchParam.size) {
-  //       params = params.append('size', searchParam.size);
-  //     }
-
-  //     if (searchParam.page) {
-  //       params = params.append('page', searchParam.page);
-  //     }
-  //   }
-
-  //   return params;
-  // }
 }

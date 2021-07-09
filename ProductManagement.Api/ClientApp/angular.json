@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
+            "aot": false,
             "progress": false,
             "extractCss": true,
             "outputPath": "dist",
@@ -35,7 +35,8 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "optimization": true
           },
           "configurations": {
             "production": {
@@ -159,5 +160,8 @@
       }
     }
   },
-  "defaultProject": "product_management"
+  "defaultProject": "product_management",
+  "cli": {
+    "analytics": false
+  }
 }
