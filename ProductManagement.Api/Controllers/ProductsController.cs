@@ -26,7 +26,7 @@ namespace product_management.Controllers
         public async Task<IActionResult> Get()
         {
             var products = await _productService.GetAllProducts();
-            var productDtos = products.Select(product=> _mapper.Map<ProductDto>(product));
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
             return Ok(productDtos);
         }
 
@@ -34,15 +34,22 @@ namespace product_management.Controllers
         public async Task<IActionResult> Get(Guid id)
         {
             var product = await _productService.GetProduct(id);
-            return Ok(product);
+            var productDto = _mapper.Map<ProductDto>(product);
+            return Ok(productDto);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var message = await _productService.DeleteProduct(id);
-
             return Ok(message);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] ProductDto productDto)
+        {
+            await _productService.CreateProduct(productDto);
+            return Ok(productDto);
         }
     }
 }

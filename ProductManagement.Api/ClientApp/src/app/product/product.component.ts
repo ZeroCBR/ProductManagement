@@ -4,9 +4,10 @@ import { getuid } from 'process';
 import { Product } from '../core/models/product.model';
 import { ProductService } from '../core/services/product.service';
 import { Guid } from 'guid-typescript';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductType } from '../core/enums/product-type.enum';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-product',
@@ -18,30 +19,56 @@ export class ProductComponent implements OnInit, OnDestroy {
   private routeSub: Subscription;
   ProductType = ProductType;
   productTypes = [];
+  isEditMode = false;
 
-constructor(private route: ActivatedRoute, private productService: ProductService) {}
-
+  constructor(private route: ActivatedRoute,
+    private productService: ProductService,
+    private messageService: MessageService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      id: new FormControl(Guid.create(), [Validators.required]),
+      id: new FormControl(Guid.create().toString(), [Validators.required]),
       name: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]),
-      active: new FormControl('', [Validators.required]),
+      active: new FormControl(false, [Validators.required]),
     });
 
     this.routeSub = this.route.params.subscribe(params => {
       const id = params['id'];
       if (id) {
-        this.title = 'Edit Product';
+        this.isEditMode = true;
         this.productService.getProduct(id).subscribe(product => {
           this.form.patchValue(product);
         });
-      } else {
-      this.title = 'Add Product';
       }
     });
+  }
+
+  create(): void {
+    if (!this.isFormValid()) {
+      return;
+    }
+
+    const product = this.form.value as Product;
+    this.productService.createProduct(product).subscribe(
+    () => {
+      this.messageService.add({severity: 'success', summary: 'Create Product', detail: 'Product created successfully'});
+      setTimeout(() => {this.router.navigateByUrl(''); }, 1500);
+    },
+    () => {
+      this.messageService.add({severity: 'error', summary: 'Create Product', detail: 'Failed to create product'});
+    });
+  }
+
+  isFormValid(): boolean {
+    if (this.form.invalid) {
+      this.messageService.add({severity: 'error', summary: 'Product Form', detail: 'Not valid'});
+      Object.values(this.form.controls).map(formControl => formControl.markAsTouched());
+      return false;
+    }
+    return true;
   }
 
   ngOnDestroy(): void {

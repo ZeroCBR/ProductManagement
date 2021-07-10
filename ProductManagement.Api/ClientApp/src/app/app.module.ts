@@ -18,6 +18,7 @@ import { ProductDeleteConfirmationComponent } from './product-list/product-delet
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import { ProductComponent } from './product/product.component';
+import { FormErrorComponent } from './shared/components/form-error/form-error.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProductComponent } from './product/product.component';
     ProductListComponent,
     ProductTableComponent,
     ProductDeleteConfirmationComponent,
-    ProductComponent
+    ProductComponent,
+    FormErrorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

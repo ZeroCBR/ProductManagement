@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using ProductManagement.Core.Dto;
 using ProductManagement.Core.services.interfaces;
 using ProductManagement.Data.EF;
 using ProductManagement.Data.EF.Models;
@@ -13,10 +15,19 @@ namespace ProductManagement.Core.services.implementations
     public class ProductService : IProductService
     {
         private readonly ProductManagementDbContext _context;
+        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<ProductProfile>()));
 
         public ProductService(ProductManagementDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<ProductDto> CreateProduct(ProductDto productDto)
+        {
+            var product = _mapper.Map<Product>(productDto);
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+            return productDto;
         }
 
         public async Task<string> DeleteProduct(Guid id)

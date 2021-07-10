@@ -1,7 +1,7 @@
 <h1>Product List</h1>
 <p-messages></p-messages>
 <div class="my-3 d-flex justify-content-end">
-  <button id="add-product" type="button" class="btn btn-primary d-block" routerLink='/product'>Add Products</button>
+  <button id="add-product" type="button" class="btn btn-primary d-block" routerLink='/product'>Add Product</button>
 </div>
 <div>
   <app-product-table [products]="products" (afterDeletion)="loadProducts()"></app-product-table>

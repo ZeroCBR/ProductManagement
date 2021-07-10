@@ -1,12 +1,16 @@
-<h1>{{title}}</h1>
+<h1 *ngIf="isEditMode">Edit Product</h1>
+<h1 *ngIf="!isEditMode">Add Product</h1>
+<p-messages></p-messages>
 <form [formGroup]="form">
   <div class="form-group col-md-6">
     <label for="name">Product Name</label>
     <input type="text" class="form-control" formControlName="name" id="name">
+    <app-form-error [formGroup]="form" labelName="Product Name" controlName="name"></app-form-error>
   </div>
   <div class="form-group col-md-6">
     <label for="price">Price</label>
-    <input type="text" class="form-control" formControlName="price" id="price">
+    <input type="number" class="form-control" formControlName="price" id="price">
+    <app-form-error [formGroup]="form" labelName="Price" controlName="price"></app-form-error>
   </div>
   <div class="form-group col-md-6">
     <label for="type">Product Type</label>
@@ -14,6 +18,7 @@
       <option *ngFor="let productType of ProductType | keyvalue" [value]="productType.key">{{productType.value}}
       </option>
     </select>
+    <app-form-error [formGroup]="form" labelName="Product Type" controlName="type"></app-form-error>
   </div>
   <div class="form-group pl-3">
     <div class="form-check">
@@ -21,9 +26,11 @@
       <label class="form-check-label" for="active">
         Active
       </label>
+      <app-form-error [formGroup]="form" labelName="Active" controlName="active"></app-form-error>
     </div>
   </div>
   <div class="pl-3">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button *ngIf="isEditMode" type="submit" class="btn btn-primary" (click)="update()">Update</button>
+    <button *ngIf="!isEditMode" type="submit" class="btn btn-primary" (click)="create()">Create</button>
   </div>
 </form>

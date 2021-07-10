@@ -1,0 +1,6 @@
+<div class="errors"
+  *ngIf="formGroup.get(controlName).invalid && (formGroup.get(controlName).dirty || formGroup.get(controlName).touched)">
+  <div *ngIf="formGroup.get(controlName).hasError('required')">
+    <i class="pi pi-exclamation-triangle mr-2"></i><span>{{labelName}} is required</span>
+  </div>
+</div>

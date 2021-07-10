@@ -1,4 +1,5 @@
-﻿using ProductManagement.Data.EF.Models;
+﻿using ProductManagement.Core.Dto;
+using ProductManagement.Data.EF.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,5 +12,7 @@ namespace ProductManagement.Core.services.interfaces
         Task<IEnumerable<Product>> GetAllProducts();
         Task<Product> GetProduct(Guid id);
         Task<string> DeleteProduct(Guid id);
+        Task<ProductDto> CreateProduct(ProductDto productDto);
+
     }
 }
