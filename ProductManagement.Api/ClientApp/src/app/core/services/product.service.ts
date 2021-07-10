@@ -45,6 +45,16 @@ export class ProductService {
     );
   }
 
+  updateProduct(product: Product): Observable<Product> {
+    const url = `${this.apiUrl}api/products`;
+
+    return this.http.put<Product>(url, product).pipe(
+      catchError(err => {
+        throw err;
+      })
+    );
+  }
+
   deleteProduct(id: string): Observable<string> {
     const url = `${this.apiUrl}api/products/${id}`;
 

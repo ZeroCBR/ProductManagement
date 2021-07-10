@@ -4,6 +4,7 @@ using ProductManagement.Core.Dto;
 using ProductManagement.Core.services.interfaces;
 using ProductManagement.Data.EF;
 using ProductManagement.Data.EF.Models;
+using ProductManagement.Data.EF.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,12 @@ namespace ProductManagement.Core.services.implementations
             _context = context;
         }
 
-        public async Task<ProductDto> CreateProduct(ProductDto productDto)
+        public async Task<Product> CreateProduct(ProductDto productDto)
         {
             var product = _mapper.Map<Product>(productDto);
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
-            return productDto;
+            return product;
         }
 
         public async Task<string> DeleteProduct(Guid id)
@@ -56,6 +57,27 @@ namespace ProductManagement.Core.services.implementations
             {
                 throw new ArgumentException($"Product {id} does not exist");
             }
+
+            return product;
+        }
+
+        public async Task<Product> UpdateProduct(ProductDto productDto)
+        {
+            var product = await GetProduct(productDto.id);
+            ProductType productType;
+
+            if (!Enum.TryParse(productDto.Type, out productType))
+            {
+                throw new ArgumentException($"Product type {productDto.Type} does not exist");
+            }
+
+            product.Type = productType;
+            product.Name = productDto.Name;
+            product.Price = productDto.Price;
+            product.Active = productDto.Active;
+
+            _context.Update(product);
+            await _context.SaveChangesAsync();
 
             return product;
         }

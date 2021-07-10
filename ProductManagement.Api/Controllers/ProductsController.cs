@@ -51,5 +51,12 @@ namespace product_management.Controllers
             await _productService.CreateProduct(productDto);
             return Ok(productDto);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] ProductDto productDto)
+        {
+            await _productService.UpdateProduct(productDto);
+            return Ok(productDto);
+        }
     }
 }

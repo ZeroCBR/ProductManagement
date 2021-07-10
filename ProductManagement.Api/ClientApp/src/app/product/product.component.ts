@@ -46,20 +46,32 @@ export class ProductComponent implements OnInit, OnDestroy {
     });
   }
 
-  create(): void {
+  createOrUpdate(): void {
     if (!this.isFormValid()) {
       return;
     }
 
     const product = this.form.value as Product;
-    this.productService.createProduct(product).subscribe(
-    () => {
-      this.messageService.add({severity: 'success', summary: 'Create Product', detail: 'Product created successfully'});
-      setTimeout(() => {this.router.navigateByUrl(''); }, 1500);
-    },
-    () => {
-      this.messageService.add({severity: 'error', summary: 'Create Product', detail: 'Failed to create product'});
-    });
+    if(this.isEditMode){
+      this.productService.updateProduct(product).subscribe(
+        () => {
+          this.messageService.add({severity: 'success', summary: 'Update Product', detail: 'Product updated successfully'});
+          setTimeout(() => {this.router.navigateByUrl(''); }, 2000);
+        },
+        () => {
+          this.messageService.add({severity: 'error', summary: 'Update Product', detail: 'Failed to update product'});
+        });
+    }else{
+      this.productService.createProduct(product).subscribe(
+        () => {
+          this.messageService.add({severity: 'success', summary: 'Create Product', detail: 'Product created successfully'});
+          setTimeout(() => {this.router.navigateByUrl(''); }, 2000);
+        },
+        () => {
+          this.messageService.add({severity: 'error', summary: 'Create Product', detail: 'Failed to create product'});
+        });
+    }
+    
   }
 
   isFormValid(): boolean {
