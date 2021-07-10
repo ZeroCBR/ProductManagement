@@ -12,33 +12,33 @@ import { ProductType } from '../core/enums/product-type.enum';
   selector: 'app-product',
   templateUrl: './product.component.html',
 })
-export class ProductComponent implements OnInit,OnDestroy {
-  form:FormGroup;
-  title:string;
+export class ProductComponent implements OnInit, OnDestroy {
+  form: FormGroup;
+  title: string;
   private routeSub: Subscription;
   ProductType = ProductType;
-  productTypes = []
-  
-constructor(private route: ActivatedRoute, private productService:ProductService){}
- 
+  productTypes = [];
+
+constructor(private route: ActivatedRoute, private productService: ProductService) {}
+
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      id:new FormControl(Guid.create(),[Validators.required]),
-      name:new FormControl('',[Validators.required]),
-      price:new FormControl('',[Validators.required]),
-      type:new FormControl('',[Validators.required]),
-      active:new FormControl('',[Validators.required]),
-    })
-    
+      id: new FormControl(Guid.create(), [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
+      type: new FormControl('', [Validators.required]),
+      active: new FormControl('', [Validators.required]),
+    });
+
     this.routeSub = this.route.params.subscribe(params => {
-      const id = params['id']
-      if(id){
-        this.title = 'Edit Product'
-        this.productService.getProduct(id).subscribe(product=>{
+      const id = params['id'];
+      if (id) {
+        this.title = 'Edit Product';
+        this.productService.getProduct(id).subscribe(product => {
           this.form.patchValue(product);
-        })
-      }else{
+        });
+      } else {
       this.title = 'Add Product';
       }
     });

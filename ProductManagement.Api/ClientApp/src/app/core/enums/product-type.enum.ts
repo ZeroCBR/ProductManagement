@@ -1,7 +1,7 @@
-export enum ProductType{
-  Books ='Books',
+export enum ProductType {
+  Books = 'Books',
   Electronics= 'Electronics',
-  Food='Food',
-  Furniture='Furniture',
-  Toys='Toys'
+  Food= 'Food',
+  Furniture= 'Furniture',
+  Toys= 'Toys'
 }

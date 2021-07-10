@@ -31,12 +31,12 @@ export class ProductTableComponent  {
   deleteProduct(product: Product): void {
     this.productService.deleteProduct(product.id).subscribe(
       () => {
-        this.messageService.add({severity: 'success', summary: 'Delete Product', detail: 'Product deleted successfully',life:3000});
+        this.messageService.add({severity: 'success', summary: 'Delete Product', detail: 'Product deleted successfully', life: 3000});
         this.afterDeletion.emit();
       },
       (err) => {
         console.error(err);
-        this.messageService.add({severity: 'error', summary: 'Delete Product', detail: 'Failed to delete Product',life:3000});
+        this.messageService.add({severity: 'error', summary: 'Delete Product', detail: 'Failed to delete Product', life: 3000});
         this.afterDeletion.emit();
       });
   }

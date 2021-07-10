@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import {MessageModule} from 'primeng/message'
-import {MessagesModule} from 'primeng/messages'
+import {MessageModule} from 'primeng/message';
+import {MessagesModule} from 'primeng/messages';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -15,8 +15,8 @@ import { TableModule } from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
 import { ProductDeleteConfirmationComponent } from './product-list/product-delete-confirmation/product-delete-confirmation.component';
-import {ToastModule} from 'primeng/toast'
-import {MessageService} from 'primeng/api'
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 import { ProductComponent } from './product/product.component';
 
 @NgModule({

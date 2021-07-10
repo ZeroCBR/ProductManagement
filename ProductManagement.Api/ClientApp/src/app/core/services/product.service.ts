@@ -6,13 +6,13 @@ import { Product } from '../models/product.model';
 
 @Injectable()
 export class ProductService {
-  private apiUrl:string;
+  private apiUrl: string;
 
   constructor(
     private http: HttpClient,
     @Inject('BASE_URL') baseUrl: string
   ) {
-    this.apiUrl= baseUrl;
+    this.apiUrl = baseUrl;
   }
 
   getProductList(): Observable<Product[]> {
@@ -25,7 +25,7 @@ export class ProductService {
     );
   }
 
-  getProduct(id:string): Observable<Product> {
+  getProduct(id: string): Observable<Product> {
     const url = `${this.apiUrl}api/products/${id}`;
 
     return this.http.get<Product>(url).pipe(
@@ -35,10 +35,10 @@ export class ProductService {
     );
   }
 
-  deleteProduct(id:string): Observable<string> {
+  deleteProduct(id: string): Observable<string> {
     const url = `${this.apiUrl}api/products/${id}`;
 
-    return this.http.delete(url, {responseType:'text'}).pipe(
+    return this.http.delete(url, {responseType: 'text'}).pipe(
       catchError(err => {
         throw err;
       })
