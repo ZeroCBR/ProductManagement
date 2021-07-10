@@ -17,7 +17,7 @@
     <tr class="ui-selectable-row">
       <td *ngFor="let col of cols" class="{{col.field}}Column" [ngSwitch]="col.field">
         <div *ngSwitchCase="'actions'">
-          <button class="pi pi-pencil btn" type="button"></button>
+          <button class="pi pi-pencil btn" type="button" routerLink="product/{{product.id}}"></button>
           <button class="pi pi-trash btn" (click)="deleteProductClicked(product)" type="button" data-toggle="modal"
             data-target="#deleteConfirmationModal"></button>
         </div>

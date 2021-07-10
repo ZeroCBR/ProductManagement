@@ -25,6 +25,16 @@ export class ProductService {
     );
   }
 
+  getProduct(id:string): Observable<Product> {
+    const url = `${this.apiUrl}api/products/${id}`;
+
+    return this.http.get<Product>(url).pipe(
+      catchError(err => {
+        throw err;
+      })
+    );
+  }
+
   deleteProduct(id:string): Observable<string> {
     const url = `${this.apiUrl}api/products/${id}`;
 
