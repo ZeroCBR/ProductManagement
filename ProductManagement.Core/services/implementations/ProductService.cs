@@ -37,5 +37,16 @@ namespace ProductManagement.Core.services.implementations
         {
             return await _context.Products.ToListAsync();
         }
+
+        public async Task<Product> GetProduct(Guid id)
+        {
+            var product = await _context.Products.Where(product => product.id == id).FirstOrDefaultAsync();
+            if (product == null)
+            {
+                throw new ArgumentException($"Product {id} does not exist");
+            }
+
+            return product;
+        }
     }
 }
