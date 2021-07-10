@@ -33,7 +33,7 @@ namespace ProductManagement.Data.EF
                         Name = $"product {i}",
                         Price = generateFloat(),
                         Type = (ProductType)generateInt(numOfProductType),
-                        Active = true
+                        Active = Convert.ToBoolean(generateInt(2))
                     };
 
                     products.Add(product);
@@ -53,7 +53,7 @@ namespace ProductManagement.Data.EF
         private int generateInt(int count)
         {
             var rnd = new Random();
-            return rnd.Next(0, count - 1);
+            return rnd.Next(0, count);
         }
     }
 }
