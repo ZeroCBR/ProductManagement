@@ -25,10 +25,17 @@ namespace ProductManagement.Core.services.implementations
 
         public async Task<Product> CreateProduct(ProductDto productDto)
         {
-            var product = _mapper.Map<Product>(productDto);
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-            return product;
+            try
+            {
+                var product = _mapper.Map<Product>(productDto);
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+                return product;
+            }
+            catch (AutoMapperMappingException)
+            {
+                throw new ArgumentException($"Product type {productDto.Type} does not exist");
+            }
         }
 
         public async Task<string> DeleteProduct(Guid id)
