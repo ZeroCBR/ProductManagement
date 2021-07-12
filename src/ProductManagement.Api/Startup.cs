@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using ProductManagement.Core.services.implementations;
 using ProductManagement.Core.services.interfaces;
 using ProductManagement.Data.EF;
+using System;
 
 namespace product_management
 {

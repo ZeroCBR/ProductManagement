@@ -1,0 +1,33 @@
+containers:
+  node:
+    image: node:lts-alpine
+    volumes:
+      - local: "."
+        container: /app
+    working_directory: /app
+
+  integration-server:
+    dockerfile: Dockerfile
+    build_directory: src
+    ports:
+      - 5958:80
+    dependencies:
+      - mssql
+    environment:
+      ASPNETCORE_ENVIRONMENT: Test
+
+  mssql:
+    build_directory: .batect/database
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: "Password!"
+      ACCEPT_EULA: "Y"
+    
+
+tasks:
+  run-server:
+    description: Runs a development version of the API against a local Postgres server
+    group: runtime
+    run:
+      container: integration-server
