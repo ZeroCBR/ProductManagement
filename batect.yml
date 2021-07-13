@@ -10,7 +10,7 @@ containers:
     dockerfile: Dockerfile
     build_directory: src
     ports:
-      - 5958:80
+      - 5000:80
     dependencies:
       - mssql
     environment:
@@ -27,7 +27,7 @@ containers:
 
 tasks:
   run-server:
-    description: Runs a development version of the API against a local Postgres server
+    description: Runs a test version of the API against a local server
     group: runtime
     run:
       container: integration-server
